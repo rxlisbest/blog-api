@@ -49,6 +49,7 @@ $config = [
 		    'rules' => [
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/article'],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/file'],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/statistic'],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'test'],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'api/v1/auth', 'pluralize' => false],
 			    'OPTIONS api/v1/qiniu/token' => 'api/v1/qiniu/token',

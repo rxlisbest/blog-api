@@ -68,6 +68,8 @@ class FileController extends BaseController
 			}
 		}
 
+		$token_auth = new \conquer\oauth2\TokenAuth();
+		$file->user_id = $token_auth->getAccessToken()->user_id;
 		$file->create_time = date('Y-m-d H:i:s');
 		$file->update_time = date('Y-m-d H:i:s');
 		$result = $file->save();

@@ -26,7 +26,7 @@ class BaseController extends ActiveController
 		$page_size = $pagination->getPageSize();
 		$total_count = $pagination->totalCount;
 		$pages['totalPage'] = ceil($total_count/$page_size);
-		$pages['page'] = $pagination->getPage() + 1;
+		$pages['page'] = $pagination->getPage();
 		return ['pages' => $pages, 'models' => $models];
 	}
 }
