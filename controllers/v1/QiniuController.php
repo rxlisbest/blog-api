@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\api\v1;
+namespace app\controllers\v1;
 
 use Yii;
 use Qiniu\Auth;

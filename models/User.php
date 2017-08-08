@@ -4,18 +4,29 @@ namespace app\models;
 
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $user_id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
 		return '{{%oauth2_user}}';
+	}
+
+//	public function scenarios(){
+//		return [
+//			'login' => ['username', 'user_id'],
+//			'register' => ['username', 'email', 'password'],
+//		];
+//	}
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['user_id'], 'integer'],
+			[['username', 'password', 'salt', 'roles', 'scope', 'client_id'], 'string'],
+		];
 	}
 
     /**

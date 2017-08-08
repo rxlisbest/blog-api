@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\api\v1;
+namespace app\controllers\v1;
 
 use Yii;
 use app\models\File;
@@ -14,7 +14,7 @@ class FileController extends BaseController
 
 	public function actions(){
 		$actions = parent::actions();
-		unset($actions['view'], $actions['create']);
+		unset($actions['view'], $actions['create'], $actions['update'], $actions['delete']);
 		return $actions;
 	}
 

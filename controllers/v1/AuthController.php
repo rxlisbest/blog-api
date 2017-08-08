@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\api\v1;
+namespace app\controllers\v1;
 
 use Yii;
 use yii\web\Response;
@@ -18,7 +18,10 @@ class AuthController extends ActiveController
 			 */
 			'create' => [
 				'class' => \conquer\oauth2\TokenAction::classname(),
-			]
+			],
+			'options' => [
+				'class' => \conquer\oauth2\TokenAction::classname(),
+			],
 		];
 	}
 }
