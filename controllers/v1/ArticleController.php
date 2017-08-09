@@ -4,6 +4,7 @@ namespace app\controllers\v1;
 
 use Yii;
 use app\models\Article;
+use app\models\File;
 use yii\data\Pagination;
 use yii\web\HttpException;
 use conquer\oauth2\TokenAuth;
@@ -14,7 +15,7 @@ class ArticleController extends BaseController
 
 	public function actions(){
 		$actions = parent::actions();
-		unset($actions['index'], $actions['create'], $actions['update'], $actions['delete']);
+		unset($actions['index'], $actions['view'], $actions['create'], $actions['update'], $actions['delete']);
 		return $actions;
 	}
 
@@ -30,6 +31,7 @@ class ArticleController extends BaseController
 		if(isset($get['user_id'])){
 			$where['user_id'] = $get['user_id'];
 		}
+		$where['status'] = 0;
 		$query = Article::find();
 		$query->where($where);
 		// 得到文章的总数（但是还没有从数据库取数据）
@@ -40,6 +42,33 @@ class ArticleController extends BaseController
 		// 使用分页对象来填充 limit 子句并取得文章数据
 		$articles = $query->orderBy(['create_time' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
 		return $this->paginationData($articles, $pagination);
+	}
+
+	public function actionView($id){
+		$article = Article::findOne($id);
+		if(!$article){
+			throw new HttpException(404, "Object not found: ${id}");
+		}
+		if($article->attributes['type'] == 1 && $article->attributes['cover_src'] == ''){
+			$file = File::findOne($article->attributes['file_id']);
+			if($file){
+				$video = '';
+				if($file->attributes['transcode_id']){
+					if($file->attributes['is_transcoded']){
+						$video = $file->attributes['domain'] . $file->attributes['transcode_name'];
+					}
+				}
+				else{
+					$video = $file->attributes['domain'] . $file->attributes['save_name'];
+				}
+				if($video){
+					$cover_src = $video . '?vframe/jpg/offset/5';
+					$article->cover_src =  $cover_src;
+					$article->save();
+				}
+			}
+		}
+		return $article;
 	}
 
 	public function actionCreate(){

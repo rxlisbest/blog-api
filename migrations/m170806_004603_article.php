@@ -12,6 +12,7 @@ class m170806_004603_article extends Migration
 		    'user_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0 COMMENT \'用户ID\'',
 		    'file_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0 COMMENT \'文件ID\'',
 		    'title' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'文章标题\'',
+		    'cover_src' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'封面链接\'',
 		    'content' => Schema::TYPE_TEXT . ' DEFAULT NULL COMMENT \'文章正文\'',
 		    'type' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'文章类型\'',
 		    'status' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'文章状态\'',

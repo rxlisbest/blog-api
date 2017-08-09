@@ -32,7 +32,7 @@ class Article extends \yii\db\ActiveRecord
 	{
 		return [
 			[['user_id', 'file_id', 'type', 'status'], 'integer'],
-			[['content'], 'string'],
+			[['content', 'cover_src'], 'string'],
 			[['title', 'create_time', 'update_time'], 'string']
 		];
 	}
@@ -45,12 +45,13 @@ class Article extends \yii\db\ActiveRecord
 		return [
 			'user_id' => '用户ID',
 			'file_id' => '文件ID',
-			'title' => 'password',
-			'content' => 'salt',
-			'type' => 'roles',
-			'status' => 'scope',
-			'create_time' => 'scope',
-			'update_time' => 'scope'
+			'title' => '标题',
+			'cover_src' => '封面链接',
+			'content' => '内容',
+			'type' => '类型',
+			'status' => '状态',
+			'create_time' => '创建时间',
+			'update_time' => '编辑时间'
 		];
 	}
 }
