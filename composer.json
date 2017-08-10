@@ -18,7 +18,7 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "conquer/oauth2": "*",
+//        "conquer/oauth2": "*",
         "qiniu/php-sdk": "^7.1"
     },
     "require-dev": {
