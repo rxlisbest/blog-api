@@ -13,9 +13,9 @@ nbproject
 Thumbs.db
 
 # composer vendor dir
+/vendor/*
 !/vendor/conquer/*
 !/vendor/bower/*
-/vendor_bak
 
 # composer itself is not needed
 composer.phar
