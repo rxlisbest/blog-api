@@ -1,3 +1,6 @@
+#####相关
+- yii
+- 七牛云储存，文档https://developer.qiniu.com
 
 #####安装步骤
 - git clone https://github.com/rxlisbest/blog-api.git
