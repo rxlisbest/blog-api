@@ -12,8 +12,7 @@
 >    'password' => '[密码]',  
 >    'charset' => 'utf8',  
 >];  
-- 在目录config/中新建params.php文件
-><?php  
+- 在目录config/中新建params.php文件 
 >return [  
 > 'adminEmail' => 'admin@example.com',  
 > 'qiniu' => [  
