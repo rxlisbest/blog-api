@@ -29,11 +29,14 @@ class ArticleController extends BaseController
 		}
 		$where = [];
 		if(isset($get['user_id'])){
-			$where['user_id'] = $get['user_id'];
+			$where['a.user_id'] = $get['user_id'];
 		}
-		$where['status'] = 0;
+		if(isset($get['type'])){
+			$where['ac.type'] = $get['type'];
+		}
+		$where['a.status'] = 0;
 		$query = Article::find();
-		$query->where($where);
+		$query->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where);
 		// 得到文章的总数（但是还没有从数据库取数据）
 		$count = $query->count();
 		// 使用总数来创建一个分页对象

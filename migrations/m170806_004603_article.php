@@ -14,7 +14,7 @@ class m170806_004603_article extends Migration
 		    'title' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'文章标题\'',
 		    'cover_src' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'封面链接\'',
 		    'content' => Schema::TYPE_TEXT . ' DEFAULT NULL COMMENT \'文章正文\'',
-		    'type' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'文章类型\'',
+		    'category_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0 COMMENT \'文章分类\'',
 		    'status' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'文章状态\'',
 		    'create_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
 		    'update_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',

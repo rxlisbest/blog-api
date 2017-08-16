@@ -5,24 +5,14 @@ use Yii;
 use conquer\oauth2\Exception;
 use yii\helpers\VarDumper;
 
-/**
- * This is the model class for table "oauth2_user".
- *
- * @property integer $user_id
- * @property string $username
- * @property string $password
- * @property string $salt
- * @property string $roles
- * @property string $scope
- */
-class Article extends \yii\db\ActiveRecord
+class ArticleCategory extends \yii\db\ActiveRecord
 {
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
-		return '{{%article}}';
+		return '{{%article_category}}';
 	}
 
 	/**
@@ -31,8 +21,7 @@ class Article extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['user_id', 'file_id', 'category_id', 'status'], 'integer'],
-			[['content', 'cover_src'], 'string'],
+			[['user_id', 'parent_id', 'type', 'status'], 'integer'],
 			[['title', 'create_time', 'update_time'], 'string']
 		];
 	}
@@ -44,11 +33,9 @@ class Article extends \yii\db\ActiveRecord
 	{
 		return [
 			'user_id' => '用户ID',
-			'file_id' => '文件ID',
+			'parent_id' => '上级ID',
 			'title' => '标题',
-			'cover_src' => '封面链接',
-			'content' => '内容',
-			'category_id' => '分类ID',
+			'type' => '类型',
 			'status' => '状态',
 			'create_time' => '创建时间',
 			'update_time' => '编辑时间'

@@ -92,7 +92,7 @@ class UserCredentials extends BaseModel
             if (!$this->_user = User::findOne(['username' => $this->username])) {
                 throw new HttpException(400, 'User do not exist.');
             }
-            if ($this->_user->password != md5($this->password)) {
+            if ($this->_user->password != md5($this->password . $this->_user->salt)) {
                 throw new HttpException(400, 'Incorrect password.');
             }
         }

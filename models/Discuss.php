@@ -15,14 +15,14 @@ use yii\helpers\VarDumper;
  * @property string $roles
  * @property string $scope
  */
-class Article extends \yii\db\ActiveRecord
+class Discuss extends \yii\db\ActiveRecord
 {
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
-		return '{{%article}}';
+		return '{{%discuss}}';
 	}
 
 	/**
@@ -31,9 +31,9 @@ class Article extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['user_id', 'file_id', 'category_id', 'status'], 'integer'],
-			[['content', 'cover_src'], 'string'],
-			[['title', 'create_time', 'update_time'], 'string']
+			[['user_id', 'article_id', 'status', 'time'], 'integer'],
+			[['content'], 'string'],
+			[['create_time', 'update_time'], 'string']
 		];
 	}
 
@@ -44,12 +44,10 @@ class Article extends \yii\db\ActiveRecord
 	{
 		return [
 			'user_id' => '用户ID',
-			'file_id' => '文件ID',
-			'title' => '标题',
-			'cover_src' => '封面链接',
-			'content' => '内容',
-			'category_id' => '分类ID',
+			'content' => '讨论正文',
+			'article_id' => '文章ID',
 			'status' => '状态',
+			'time' => '视频播放时间',
 			'create_time' => '创建时间',
 			'update_time' => '编辑时间'
 		];

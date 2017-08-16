@@ -48,10 +48,13 @@ $config = [
 		    'showScriptName' => false,
 		    'rules' => [ // 全部用单数
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article', 'pluralize' => false],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/discuss', 'pluralize' => false],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article-category', 'pluralize' => false],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/user', 'pluralize' => false],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/file', 'pluralize' => false],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/statistic', 'pluralize' => false],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/auth', 'pluralize' => false],
+			    'OPTIONS,POST v1/wechat/login' => 'v1/wechat/login',
 			    'OPTIONS,GET v1/qiniu/token' => 'v1/qiniu/token',
 			    'OPTIONS,GET v1/user/fetch' => 'v1/user/fetch',
 		    ],
