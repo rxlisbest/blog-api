@@ -8,6 +8,7 @@ use app\models\User;
 use linslin\yii2\curl;
 use yii\rest\ActiveController;
 use yii\web\HttpException;
+use yii\captcha\CaptchaAction;
 
 class WechatController extends ActiveController
 {
@@ -20,6 +21,13 @@ class WechatController extends ActiveController
 	}
 
 	public function actionLogin(){
+		$a = new CaptchaAction(1, $this);
+//		@ header("Content-Type:image/png"); //创建一个图层
+		echo $a->run();exit;
+		exit;
+		$result = $a->validate('rosafcx', true);
+		var_dump($result);
+		exit;
 		$get = Yii::$app->request->get();
 
 		$AppID = Yii::$app->params['wechat']['AppID'];

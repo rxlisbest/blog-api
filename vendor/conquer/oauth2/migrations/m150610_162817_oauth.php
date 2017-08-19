@@ -61,6 +61,7 @@ class m150610_162817_oauth extends Migration
         $this->createTable('{{%oauth2_user}}', [
             'user_id' => Schema::TYPE_INTEGER . '(11) NOT NULL AUTO_INCREMENT',
             'username' => Schema::TYPE_STRING . '(20) NOT NULL',
+	        'cellphone' => Schema::TYPE_STRING . '(20)',
             'password' => Schema::TYPE_STRING . '(50)',
             'salt' => Schema::TYPE_STRING . '(20)',
             'roles' => Schema::TYPE_TEXT,

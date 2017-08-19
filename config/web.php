@@ -55,6 +55,7 @@ $config = [
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/statistic', 'pluralize' => false],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/auth', 'pluralize' => false],
 			    'OPTIONS,POST v1/wechat/login' => 'v1/wechat/login',
+			    'OPTIONS,GET v1/sms-aliyun/send' => 'v1/sms-aliyun/send',
 			    'OPTIONS,GET v1/qiniu/token' => 'v1/qiniu/token',
 			    'OPTIONS,GET v1/user/fetch' => 'v1/user/fetch',
 		    ],

@@ -40,7 +40,7 @@ class User extends \yii\db\ActiveRecord
             [['user_id', 'username', 'password', 'salt'], 'required'],
             [['roles', 'scope'], 'longtext'],
             [['user_id'], 'integer'],
-            [['username', 'password', 'salt'], 'string']
+            [['username', 'cellphone', 'password', 'salt'], 'string']
         ];
     }
 
