@@ -6,7 +6,6 @@ use app\models\ArticleCategory;
 use Yii;
 use app\models\Article;
 use app\models\File;
-use yii\data\Pagination;
 use yii\web\HttpException;
 use conquer\oauth2\TokenAuth;
 use yii\data\ActiveDataProvider;
@@ -24,10 +23,13 @@ class ArticleController extends BaseController
 	public function actionIndex(){
 		$get = Yii::$app->request->get();
 		if(isset($get['page'])){
-			$page = $get['page'];
+			$pagination = [
+				'page' => $get['page'],
+				'pageSize' => 10,
+			];
 		}
 		else{
-			$page = 0;
+			$pagination = false;
 		}
 
 		$where = [];
@@ -44,10 +46,7 @@ class ArticleController extends BaseController
 		return Yii::createObject([
 			'class' => ActiveDataProvider::className(),
 			'query' => Article::find()->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where)->orderBy(['create_time' => SORT_DESC]),
-			'pagination' => [
-				'page' => $page,
-				'pageSize' => 1,
-			],
+			'pagination' => $pagination,
 		]);
 	}
 

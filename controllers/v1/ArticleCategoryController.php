@@ -4,9 +4,9 @@ namespace app\controllers\v1;
 
 use app\models\ArticleCategory;
 use Yii;
-use yii\data\Pagination;
 use yii\web\HttpException;
 use conquer\oauth2\TokenAuth;
+use yii\data\ActiveDataProvider;
 
 class ArticleCategoryController extends BaseController
 {
@@ -20,6 +20,17 @@ class ArticleCategoryController extends BaseController
 
 	public function actionIndex(){
 		$get = Yii::$app->request->get();
+
+		if(isset($get['page'])){
+			$pagination = [
+				'page' => $get['page'],
+				'pageSize' => 10,
+			];
+		}
+		else{
+			$pagination = false;
+		}
+
 		$where = [];
 		if(isset($get['type'])){
 			$where['type'] = $get['type'];
@@ -29,9 +40,12 @@ class ArticleCategoryController extends BaseController
 			$where['user_id'] = $get['user_id'];
 		}
 		$where['status'] = 0;
-		$query = ArticleCategory::find();
-		$article_category = $query->where($where)->orderBy(['create_time' => SORT_DESC])->all();
-		return $article_category;
+
+		return Yii::createObject([
+			'class' => ActiveDataProvider::className(),
+			'query' => ArticleCategory::find()->where($where)->orderBy(['create_time' => SORT_DESC]),
+			'pagination' => $pagination,
+		]);
 	}
 
 	public function actionCreate(){

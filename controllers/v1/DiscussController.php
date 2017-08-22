@@ -5,7 +5,7 @@ namespace app\controllers\v1;
 use app\models\Discuss;
 use Yii;
 use yii\web\HttpException;
-use conquer\oauth2\TokenAuth;
+use yii\data\ActiveDataProvider;
 
 class DiscussController extends BaseController
 {
@@ -15,6 +15,36 @@ class DiscussController extends BaseController
 		$actions = parent::actions();
 		unset($actions['create']);
 		return $actions;
+	}
+
+	public function actionIndex(){
+		$get = Yii::$app->request->get();
+
+		if(isset($get['page'])){
+			$pagination = [
+				'page' => $get['page'],
+				'pageSize' => 10,
+			];
+		}
+		else{
+			$pagination = false;
+		}
+
+		$where = [];
+		if(isset($get['type'])){
+			$where['type'] = $get['type'];
+		}
+
+		if(isset($get['user_id'])){
+			$where['user_id'] = $get['user_id'];
+		}
+		$where['status'] = 0;
+
+		return Yii::createObject([
+			'class' => ActiveDataProvider::className(),
+			'query' => Discuss::find()->where($where)->orderBy(['create_time' => SORT_DESC]),
+			'pagination' => $pagination,
+		]);
 	}
 
 	public function actionCreate(){
