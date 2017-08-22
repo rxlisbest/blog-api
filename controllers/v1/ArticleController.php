@@ -24,7 +24,7 @@ class ArticleController extends BaseController
 		$get = Yii::$app->request->get();
 		if(isset($get['page'])){
 			$pagination = [
-				'page' => $get['page'],
+				'page' => $get['page'] - 1,
 				'pageSize' => 10,
 			];
 		}

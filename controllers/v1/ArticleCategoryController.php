@@ -23,7 +23,7 @@ class ArticleCategoryController extends BaseController
 
 		if(isset($get['page'])){
 			$pagination = [
-				'page' => $get['page'],
+				'page' => $get['page'] - 1,
 				'pageSize' => 10,
 			];
 		}
