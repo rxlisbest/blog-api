@@ -31,9 +31,9 @@ class Discuss extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['user_id', 'article_id', 'status', 'time'], 'integer'],
+			[['user_id', 'article_id', 'type', 'status', 'time'], 'integer'],
 			[['content'], 'string'],
-			[['create_time', 'update_time'], 'string']
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 

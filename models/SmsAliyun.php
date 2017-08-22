@@ -32,7 +32,7 @@ class SmsAliyun extends \yii\db\ActiveRecord
 	{
 		return [
 			[['ParamString', 'RecNum', 'TemplateCode', 'ip'], 'string'],
-			[['create_time', 'update_time'], 'string']
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 

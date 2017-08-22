@@ -33,7 +33,8 @@ class Article extends \yii\db\ActiveRecord
 		return [
 			[['user_id', 'file_id', 'category_id', 'status'], 'integer'],
 			[['content', 'cover_src'], 'string'],
-			[['title', 'create_time', 'update_time'], 'string']
+			[['title'], 'string'],
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 

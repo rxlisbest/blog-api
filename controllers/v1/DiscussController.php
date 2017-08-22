@@ -24,10 +24,9 @@ class DiscussController extends BaseController
 			$discuss->{$k} = $v;
 		}
 
-		$token_auth = new TokenAuth();
-		$discuss->user_id = $token_auth->getAccessToken()->user_id;
-		$discuss->create_time = date('Y-m-d H:i:s');
-		$discuss->update_time = date('Y-m-d H:i:s');
+		$discuss->user_id = $this->getUserId();
+		$discuss->create_time = time();
+		$discuss->update_time = time();
 		$result = $discuss->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');

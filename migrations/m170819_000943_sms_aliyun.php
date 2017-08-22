@@ -12,8 +12,8 @@ class m170819_000943_sms_aliyun extends Migration
 			'RecNum' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT 0 COMMENT \'code\'',
 			'TemplateCode' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT 0 COMMENT \'code\'',
 			'ip' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'IP\'',
-			'create_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
-			'update_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
+			'create_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
+			'update_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
 			'PRIMARY KEY (id)',
 		]);
 	}

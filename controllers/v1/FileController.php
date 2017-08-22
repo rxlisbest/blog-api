@@ -70,8 +70,8 @@ class FileController extends BaseController
 
 		$token_auth = new \conquer\oauth2\TokenAuth();
 		$file->user_id = $token_auth->getAccessToken()->user_id;
-		$file->create_time = date('Y-m-d H:i:s');
-		$file->update_time = date('Y-m-d H:i:s');
+		$file->create_time = time();
+		$file->update_time = time();
 		$result = $file->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');

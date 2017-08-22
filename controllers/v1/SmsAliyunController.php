@@ -3,9 +3,10 @@
 namespace app\controllers\v1;
 
 use Yii;
-use linslin\yii2\curl;
+//use linslin\yii2\curl;
 use app\models\SmsAliyun;
 use yii\web\HttpException;
+use yii\captcha\CaptchaAction;
 
 class SmsAliyunController extends BaseController
 {
@@ -19,6 +20,15 @@ class SmsAliyunController extends BaseController
 
 	public function actionSend(){
 		$get = Yii::$app->request->get();
+//		// 图形验证码
+//		if(!isset($get['captcha']) || !trim($get['captcha'])){
+//			throw new HttpException(400, "验证码不能为空");
+//		}
+//		$captcha = new CaptchaAction(1, $this);
+//		$result = $captcha->validate($get['captcha'], true);
+//		if(!$result){
+//			throw new HttpException(400, "验证码不正确");
+//		}
 
 		if(!isset($get['TemplateCode']) || !isset($get['RecNum'])){
 			throw new HttpException(400, "参数错误");
@@ -28,28 +38,40 @@ class SmsAliyunController extends BaseController
 		if(!isset($sms_config['TemplateCode'][$get['TemplateCode']])){
 			throw new HttpException(400, "参数错误");
 		}
+
+		if(!preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $get['RecNum'])){
+			throw new HttpException(400, "手机号格式不正确");
+		}
+
 		$template_code = $sms_config['TemplateCode'][$get['TemplateCode']];
-		$query = SmsAliyun::find()->andWhere(['>', 'create_time', strtotime(date('Y-m-d'))])->andWhere(['<', 'create_time', time()]);
+		$query = SmsAliyun::find()->where(['>', 'create_time', strtotime(date('Y-m-d'))])->andWhere(['<', 'create_time', time()]);
 		// 同一IP每天条数限制
-		$m = clone $query;
+		$x = clone $query;
 		$where = ['ip' => Yii::$app->request->userIP];
-		$send_count = $m->where($where)->count();
+		$send_count = $x->andWhere($where)->count();
 		if($send_count >= 3*$template_code['daily_limit']){
 			throw new HttpException(500, "同一IP超出每天限制数量");
 		}
 		// 同一模板每天条数限制
-		$n = clone $query;
+		$y = clone $query;
 		$where = ['RecNum' => $get['RecNum']];
-		$send_count = $n->where($where)->andWhere(['TemplateCode' => $template_code['code']])->count();
+		$send_count = $y->andWhere($where)->andWhere(['TemplateCode' => $template_code['code']])->count();
 		if($send_count >= $template_code['daily_limit']){
 			throw new HttpException(500, "超出每天限制数量");
+		}
+
+		// 每天条数总数限制
+		$z = clone $query;
+		$send_count = $z->count();
+		if($send_count >= $sms_config['daily_limit']){
+			throw new HttpException(500, "超出每天限制总数量");
 		}
 
 		// 上次发短信时间间隔
 		$where = ['RecNum' => $get['RecNum']];
 		$last_sms = SmsAliyun::find()->where($where)->andWhere(['TemplateCode' => $template_code['code']])->orderBy('create_time DESC')->one();
 		if($last_sms && time() - $last_sms->attributes['create_time'] < $sms_config['time_interval']){
-			throw new HttpException(500, '时间间隔');
+			throw new HttpException(500, '发送时间间隔不能短于' .$sms_config['time_interval'].'s');
 		}
 
 		$param_string = $this->createParamString($get['TemplateCode']);
@@ -58,8 +80,8 @@ class SmsAliyunController extends BaseController
 		$sms_aliyun->RecNum = $get['RecNum'];
 		$sms_aliyun->TemplateCode = $template_code['code'];
 		$sms_aliyun->ip = Yii::$app->request->userIP;
-		$sms_aliyun->create_time = (string)time();
-		$sms_aliyun->update_time = (string)time();
+		$sms_aliyun->create_time = time();
+		$sms_aliyun->update_time = time();
 		$result = $sms_aliyun->save();
 		if($result){
 //			$curl = new curl\Curl();
@@ -89,5 +111,17 @@ class SmsAliyunController extends BaseController
 				// do nothing
 		}
 		return json_encode($param);
+	}
+
+	public function actionCaptcha($random){
+		// 生成验证码
+		$captcha = new CaptchaAction(1, $this);
+		$captcha->minLength = 4;
+		$captcha->maxLength = 4;
+		$captcha->width = 80;
+		$captcha->height = 45;
+		$captcha->getVerifyCode(true);
+		@ header("Content-Type:image/png"); // 创建一个图层
+		echo $captcha->run();exit;
 	}
 }

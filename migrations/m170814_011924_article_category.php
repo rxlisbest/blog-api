@@ -14,8 +14,8 @@ class m170814_011924_article_category extends Migration
 		    'title' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'分类标题\'',
 		    'type' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'分类类型\'',
 		    'status' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'分类状态\'',
-		    'create_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
-		    'update_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
+		    'create_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
+		    'update_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
 		    'PRIMARY KEY (id)',
 	    ]);
     }

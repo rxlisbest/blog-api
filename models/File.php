@@ -32,7 +32,8 @@ class File extends \yii\db\ActiveRecord
 	{
 		return [
 			[['user_id', 'size', 'is_transcoded'], 'integer'],
-			[['hash', 'name', 'type', 'domain', 'save_name', 'transcode_id', 'transcode_type', 'transcode_name', 'create_time', 'update_time'], 'string']
+			[['hash', 'name', 'type', 'domain', 'save_name', 'transcode_id', 'transcode_type', 'transcode_name'], 'string'],
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 

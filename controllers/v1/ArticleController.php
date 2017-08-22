@@ -2,12 +2,14 @@
 
 namespace app\controllers\v1;
 
+use app\models\ArticleCategory;
 use Yii;
 use app\models\Article;
 use app\models\File;
 use yii\data\Pagination;
 use yii\web\HttpException;
 use conquer\oauth2\TokenAuth;
+use yii\data\ActiveDataProvider;
 
 class ArticleController extends BaseController
 {
@@ -21,12 +23,13 @@ class ArticleController extends BaseController
 
 	public function actionIndex(){
 		$get = Yii::$app->request->get();
-		if(isset($get['page']) && $get['page']){
+		if(isset($get['page'])){
 			$page = $get['page'];
 		}
 		else{
 			$page = 0;
 		}
+
 		$where = [];
 		if(isset($get['user_id'])){
 			$where['a.user_id'] = $get['user_id'];
@@ -34,17 +37,18 @@ class ArticleController extends BaseController
 		if(isset($get['type'])){
 			$where['ac.type'] = $get['type'];
 		}
+		if(isset($get['category_id'])){
+			$where['a.category_id'] = $get['category_id'];
+		}
 		$where['a.status'] = 0;
-		$query = Article::find();
-		$query->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where);
-		// 得到文章的总数（但是还没有从数据库取数据）
-		$count = $query->count();
-		// 使用总数来创建一个分页对象
-		$pagination = new Pagination(['totalCount' => $count, 'page' => $page]);
-
-		// 使用分页对象来填充 limit 子句并取得文章数据
-		$articles = $query->orderBy(['create_time' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
-		return $this->paginationData($articles, $pagination);
+		return Yii::createObject([
+			'class' => ActiveDataProvider::className(),
+			'query' => Article::find()->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where)->orderBy(['create_time' => SORT_DESC]),
+			'pagination' => [
+				'page' => $page,
+				'pageSize' => 1,
+			],
+		]);
 	}
 
 	public function actionView($id){
@@ -52,7 +56,9 @@ class ArticleController extends BaseController
 		if(!$article){
 			throw new HttpException(404, "Object not found: ${id}");
 		}
-		if($article->attributes['type'] == 1 && $article->attributes['cover_src'] == ''){
+
+		$article_category = ArticleCategory::findOne($article->category_id);
+		if($article_category->type == 1 && $article->cover_src == ''){
 			$file = File::findOne($article->attributes['file_id']);
 			if($file){
 				$video = '';
@@ -83,8 +89,8 @@ class ArticleController extends BaseController
 
 		$token_auth = new TokenAuth();
 		$article->user_id = $token_auth->getAccessToken()->user_id;
-		$article->create_time = date('Y-m-d H:i:s');
-		$article->update_time = date('Y-m-d H:i:s');
+		$article->create_time = time();
+		$article->update_time = time();
 		$result = $article->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');
@@ -107,7 +113,7 @@ class ArticleController extends BaseController
 			$article->{$k} = $v;
 		}
 
-		$article->update_time = date('Y-m-d H:i:s');
+		$article->update_time = time();
 		$result = $article->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');

@@ -22,7 +22,8 @@ class ArticleCategory extends \yii\db\ActiveRecord
 	{
 		return [
 			[['user_id', 'parent_id', 'type', 'status'], 'integer'],
-			[['title', 'create_time', 'update_time'], 'string']
+			[['title'], 'string'],
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 

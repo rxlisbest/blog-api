@@ -20,8 +20,8 @@ class m170806_004618_file extends Migration
 		    'transcode_type' => Schema::TYPE_STRING . '(20) DEFAULT NULL COMMENT \'转码类型\'',
 		    'transcode_name' => Schema::TYPE_STRING . '(255) DEFAULT NULL COMMENT \'转码文件名称\'',
 		    'is_transcoded' => Schema::TYPE_INTEGER . '(3) NOT NULL DEFAULT 0 COMMENT \'是否转码\'',
-		    'create_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
-		    'update_time' => Schema::TYPE_STRING . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
+		    'create_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
+		    'update_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
 		    'PRIMARY KEY (id)',
 	    ]);
     }

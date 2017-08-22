@@ -33,7 +33,8 @@ class UserWechat extends \yii\db\ActiveRecord
 		return [
 			[['user_id'], 'integer'],
 			[['openid'], 'string'],
-			[['create_time', 'update_time'], 'string']
+			[['nickName', 'avatarUrl', 'country', 'province', 'city', 'language'], 'string'],
+			[['create_time', 'update_time'], 'integer']
 		];
 	}
 
@@ -45,6 +46,12 @@ class UserWechat extends \yii\db\ActiveRecord
 		return [
 			'user_id' => '用户ID',
 			'openid' => 'openid',
+			'nickName' => 'nickName',
+			'avatarUrl' => 'avatarUrl',
+			'country' => 'country',
+			'province' => 'province',
+			'city' => 'city',
+			'language' => 'language',
 			'create_time' => '创建时间',
 			'update_time' => '编辑时间'
 		];

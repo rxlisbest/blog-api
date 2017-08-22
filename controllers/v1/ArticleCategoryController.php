@@ -4,8 +4,6 @@ namespace app\controllers\v1;
 
 use app\models\ArticleCategory;
 use Yii;
-use app\models\Article;
-use app\models\File;
 use yii\data\Pagination;
 use yii\web\HttpException;
 use conquer\oauth2\TokenAuth;
@@ -16,8 +14,24 @@ class ArticleCategoryController extends BaseController
 
 	public function actions(){
 		$actions = parent::actions();
-		unset($actions['create'], $actions['update']);
+		unset($actions['index'], $actions['create'], $actions['update']);
 		return $actions;
+	}
+
+	public function actionIndex(){
+		$get = Yii::$app->request->get();
+		$where = [];
+		if(isset($get['type'])){
+			$where['type'] = $get['type'];
+		}
+
+		if(isset($get['user_id'])){
+			$where['user_id'] = $get['user_id'];
+		}
+		$where['status'] = 0;
+		$query = ArticleCategory::find();
+		$article_category = $query->where($where)->orderBy(['create_time' => SORT_DESC])->all();
+		return $article_category;
 	}
 
 	public function actionCreate(){
@@ -29,8 +43,8 @@ class ArticleCategoryController extends BaseController
 
 		$token_auth = new TokenAuth();
 		$article_category->user_id = $token_auth->getAccessToken()->user_id;
-		$article_category->create_time = date('Y-m-d H:i:s');
-		$article_category->update_time = date('Y-m-d H:i:s');
+		$article_category->create_time = time();
+		$article_category->update_time = time();
 		$result = $article_category->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');
@@ -53,7 +67,7 @@ class ArticleCategoryController extends BaseController
 			$article_category->{$k} = $v;
 		}
 
-		$article_category->update_time = date('Y-m-d H:i:s');
+		$article_category->update_time = time();
 		$result = $article_category->save();
 		if(!$result){
 			throw new HttpException(500, '操作失败');
