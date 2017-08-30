@@ -54,6 +54,8 @@ class DiscussionController extends BaseController
 			$discussion->{$k} = $v;
 		}
 
+		$sensitive_words = Yii::$app->params['sensitive_words'];
+		$discussion->content = str_replace($sensitive_words, '***', $discussion->content);
 		$discussion->user_id = $this->getUserId();
 		$discussion->create_time = time();
 		$discussion->update_time = time();
