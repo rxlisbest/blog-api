@@ -15,14 +15,14 @@ use yii\helpers\VarDumper;
  * @property string $roles
  * @property string $scope
  */
-class Discuss extends \yii\db\ActiveRecord
+class Discussion extends \yii\db\ActiveRecord
 {
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
-		return '{{%discuss}}';
+		return '{{%discussion}}';
 	}
 
 	/**

@@ -3,10 +3,10 @@
 use yii\db\Migration;
 use yii\db\Schema;
 
-class m170815_124930_discuss extends Migration
+class m170815_124930_discussion extends Migration
 {
     public function safeUp(){
-	    $this->createTable('{{%discuss}}', [
+	    $this->createTable('{{%discussion}}', [
 		    'id' => Schema::TYPE_INTEGER . '(11) NOT NULL AUTO_INCREMENT',
 		    'user_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0 COMMENT \'用户ID\'',
 		    'content' => Schema::TYPE_TEXT . ' DEFAULT NULL COMMENT \'讨论正文\'',
@@ -21,7 +21,7 @@ class m170815_124930_discuss extends Migration
     }
 
     public function safeDown(){
-	    $this->dropTable('{{%discuss}}');
+	    $this->dropTable('{{%discussion}}');
     }
 
     /*

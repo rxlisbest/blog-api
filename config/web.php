@@ -46,20 +46,29 @@ $config = [
 		    'enablePrettyUrl' => true,
 		    'enableStrictParsing' => true,
 		    'showScriptName' => false,
-		    'rules' => [ // 全部用单数
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article', 'pluralize' => false],
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/discuss', 'pluralize' => false],
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article-category', 'pluralize' => false],
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/user', 'pluralize' => false],
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/file', 'pluralize' => false],
-			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/statistic', 'pluralize' => false],
+		    'rules' => [
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/discussion'],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/user'],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/file'],
+			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/statistic'],
 			    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/auth', 'pluralize' => false],
+			    // 文章分类
+			    'OPTIONS,GET v1/article-categories' => 'v1/article-category',
+			    'OPTIONS,POST v1/article-categories' => 'v1/article-category/create',
+			    'OPTIONS,GET v1/article-categories/<id>' => 'v1/article-category',
+			    'OPTIONS,PUT v1/article-categories/<id>' => 'v1/article-category/update',
+			    'OPTIONS,DELETE v1/article-categories/<id>' => 'v1/article-category/delete',
+			    // 微信用户
 			    'OPTIONS,POST v1/user-wechat/login' => 'v1/user-wechat/login',
 			    'OPTIONS,POST v1/user-wechat/register' => 'v1/user-wechat/register',
+			    // 阿里云短信
 			    'OPTIONS,GET v1/sms-aliyun/send' => 'v1/sms-aliyun/send',
 			    'OPTIONS,GET v1/sms-aliyun/captcha/<random>' => 'v1/sms-aliyun/captcha',
+			    // 七牛
 			    'OPTIONS,GET v1/qiniu/token' => 'v1/qiniu/token',
-			    'OPTIONS,GET v1/user/fetch' => 'v1/user/fetch',
+			    // 用户
+			    'OPTIONS,GET v1/users/fetch' => 'v1/user/fetch',
 		    ],
 	    ],
     ],
