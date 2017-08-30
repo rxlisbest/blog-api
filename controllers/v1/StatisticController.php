@@ -40,7 +40,7 @@ class StatisticController extends BaseController
 		}
 		$today = date('Y-m-d');
 		$first = date('Y-m-01', strtotime($date)); // 当月第一天
-		$last = date('Y-m-d', strtotime(date('Y-m-01', strtotime($date." +1 months"))." -1 days")); // 当月最后一天
+		$last = date('Y-m-01', strtotime($date." +1 months -1 days")); // 当月最后一天
 		$data = [];
 		for($i = 0; $i < 31; $i++){
 			$key = date('Y-m-d', strtotime($first." +${i} days"));
@@ -55,10 +55,10 @@ class StatisticController extends BaseController
 			}
 		}
 		$query = File::find();
-		$result = $query->select(["create_time", 'SUM(size) AS size', 'user_id'])->where(['user_id' => $user_id])->andWhere(['>=','date_format(create_time, \'%Y-%m-%d\')', $first])->andWhere(['<=','date_format(create_time, \'%Y-%m-%d\')', $last])->groupBy(["date_format(create_time, '%Y-%m-%d')", 'user_id'])->all();
+		$result = $query->select(["create_time", 'SUM(size) AS size', 'user_id'])->where(['user_id' => $user_id])->andWhere(['>=','FROM_UNIXTIME(create_time, \'%Y-%m-%d\')', $first])->andWhere(['<=','FROM_UNIXTIME(create_time, \'%Y-%m-%d\')', $last])->groupBy(["FROM_UNIXTIME(create_time, '%Y-%m-%d')", 'user_id'])->all();
 		foreach ($result as $k => $v){
-			$key = date('Y-m-d', strtotime($v->attributes['create_time']));
-			$data[$key] = $v->attributes['size'];
+			$key = date('Y-m-d', $v->create_time);
+			$data[$key] = $v->size;
 		}
 
 		$labels = [];
@@ -101,12 +101,12 @@ class StatisticController extends BaseController
 			}
 		}
 		$query = File::find();
-		$result = $query->select(["create_time", 'SUM(size) AS size', 'user_id'])->where(['user_id' => $user_id])->andWhere(['>=','date_format(create_time, \'%Y-%m-%d\')', $first])->andWhere(['<=','date_format(create_time, \'%Y-%m-%d\')', $last])->groupBy(["date_format(create_time, '%Y-%m-%d')", 'user_id'])->all();
+		$result = $query->select(["create_time", 'SUM(size) AS size', 'user_id'])->where(['user_id' => $user_id])->andWhere(['>=','FROM_UNIXTIME(create_time, \'%Y-%m-%d\')', $first])->andWhere(['<=','FROM_UNIXTIME(create_time, \'%Y-%m-%d\')', $last])->groupBy(["FROM_UNIXTIME(create_time, '%Y-%m-%d')", 'user_id'])->all();
 //		var_dump($query->createCommand()->getRawSql());exit;
 		foreach ($result as $k => $v){
-			$key = date('Y-m-d', strtotime($v->attributes['create_time']));
+			$key = date('Y-m-d', $v->create_time);
 			if($v->attributes['size'] > 0){
-				$data[$key] = $v->attributes['size'];
+				$data[$key] = $v->size;
 			}
 		}
 
