@@ -84,16 +84,16 @@ class SmsAliyunController extends BaseController
 		$sms_aliyun->update_time = time();
 		$result = $sms_aliyun->save();
 		if($result){
-//			$curl = new curl\Curl();
-//			$response = $curl->setGetParams([
-//				'ParamString' => $param_string,
-//				'RecNum' => $get['RecNum'],
-//				'SignName' => $sms_config['SignName'],
-//				'TemplateCode' => $template_code['code']
-//			])->setHeaders([
-//				'Authorization' => 'APPCODE ' . $sms_config['AppCode'],
-//			])->get('http://sms.market.alicloudapi.com/singleSendSms');
-//			$result = json_decode($response);
+			$curl = new curl\Curl();
+			$response = $curl->setGetParams([
+				'ParamString' => $param_string,
+				'RecNum' => $get['RecNum'],
+				'SignName' => $sms_config['SignName'],
+				'TemplateCode' => $template_code['code']
+			])->setHeaders([
+				'Authorization' => 'APPCODE ' . $sms_config['AppCode'],
+			])->get('http://sms.market.alicloudapi.com/singleSendSms');
+			$result = json_decode($response);
 			return $result;
 		}
 		else{
