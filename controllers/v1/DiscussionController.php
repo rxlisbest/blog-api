@@ -38,6 +38,11 @@ class DiscussionController extends BaseController
 		if(isset($get['user_id'])){
 			$where['user_id'] = $get['user_id'];
 		}
+
+		if(isset($get['article_id'])){
+			$where['article_id'] = $get['article_id'];
+		}
+		
 		$where['status'] = 0;
 
 		return Yii::createObject([
