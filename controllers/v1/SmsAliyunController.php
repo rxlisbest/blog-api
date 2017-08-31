@@ -3,7 +3,7 @@
 namespace app\controllers\v1;
 
 use Yii;
-//use linslin\yii2\curl;
+use linslin\yii2\curl;
 use app\models\SmsAliyun;
 use yii\web\HttpException;
 use yii\captcha\CaptchaAction;
