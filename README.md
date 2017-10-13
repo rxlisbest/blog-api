@@ -23,7 +23,7 @@
             'charset' => 'utf8',  
         ];
 ```
-- 在目录config/中新建params.php文件
+- 在目录config/中新建params.php文件，并将[]内的替换成自己的
 ```
 <?php
     return [
