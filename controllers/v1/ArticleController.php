@@ -45,7 +45,7 @@ class ArticleController extends BaseController
 		$where['a.status'] = 0;
 		return Yii::createObject([
 			'class' => ActiveDataProvider::className(),
-			'query' => Article::find()->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where)->orderBy(['sort' => SORT_ASC, 'create_time' => SORT_DESC]),
+			'query' => Article::find()->select('a.*')->from('article AS a')->leftJoin("article_category AS ac", 'a.category_id = ac.id')->where($where)->orderBy(['category_id' => SORT_DESC, 'sort' => SORT_ASC, 'create_time' => SORT_DESC]),
 			'pagination' => $pagination,
 		]);
 	}
