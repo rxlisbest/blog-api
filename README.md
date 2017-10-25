@@ -32,12 +32,12 @@
         'qiniu' => [
             'accessKey' => '[七牛账号的AK]',
             'secretKey' => '[七牛账号的SK]',
-            'bucket' => '[新建的bucket名]',
+            'bucket' => '[七牛新建的bucket名]',
             'persistentOps' => 'avthumb/mp4',
             'transcodeType' => 'video/mp4',
             'persistentNotifyUrl' => '',
-            'persistentPipeline' => '[新建的pipe名]',
-            'domain' => '[绑定的CDN域名]',
+            'persistentPipeline' => '[七牛新建的pipe名]',
+            'domain' => '[七牛绑定的CDN域名]',
         ],
         'wechat' => [
             'AppID' => '[微信公众号AppID]',
