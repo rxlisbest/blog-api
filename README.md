@@ -23,7 +23,7 @@
             'charset' => 'utf8',  
         ];
 ```
-- 在目录config/中新建params.php文件，并将[]内的替换成自己的
+- 在目录config/中新建params.php文件，并将[]内的替换成自己的。点击链接注册七牛账号https://portal.qiniu.com/signup?code=3lq4yj5ibjec2
 ```
 <?php
     return [
