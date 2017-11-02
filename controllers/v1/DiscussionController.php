@@ -37,7 +37,7 @@ class DiscussionController extends BaseController
 
 		if(isset($get['time'])){
 			$get['time'] = explode($get['time']);
-			if(count(explode($get['time'])) != 2){
+			if(count(explode(',', $get['time'])) != 2){
 				unset($get['time']);
 			}
 		}
