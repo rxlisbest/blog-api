@@ -53,7 +53,7 @@ class DiscussionController extends BaseController
 		$where['status'] = 0;
 		$discussion = Discussion::find()->where($where)->orderBy(['time' => SORT_ASC]);
 		if(isset($get['time'])){
-			$discussion = $discussion->andFilterWhere('between', 'time', $get['time'][0], $get['time'][1]);
+			$discussion = $discussion->andFilterWhere(['between', 'time', $get['time'][0], $get['time'][1]]);
 		}
 		return Yii::createObject([
 			'class' => ActiveDataProvider::className(),
