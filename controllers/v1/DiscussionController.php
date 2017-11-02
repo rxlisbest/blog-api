@@ -35,6 +35,13 @@ class DiscussionController extends BaseController
 			$where['type'] = $get['type'];
 		}
 
+		if(isset($get['time'])){
+			$get['time'] = explode($get['time']);
+			if(count(explode($get['time'])) != 2){
+				unset($get['time']);
+			}
+		}
+
 		if(isset($get['user_id'])){
 			$where['user_id'] = $get['user_id'];
 		}
@@ -44,10 +51,13 @@ class DiscussionController extends BaseController
 		}
 		
 		$where['status'] = 0;
-
+		$discussion = Discussion::find()->where($where)->orderBy(['time' => SORT_ASC]);
+		if(isset($get['time'])){
+			$discussion = $discussion->andFilterWhere('between', 'time', $get['time'][0], $get['time'][1]);
+		}
 		return Yii::createObject([
 			'class' => ActiveDataProvider::className(),
-			'query' => Discussion::find()->where($where)->orderBy(['create_time' => SORT_DESC]),
+			'query' => $discussion,
 			'pagination' => $pagination,
 		]);
 	}
