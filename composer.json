@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "qiniu/php-sdk": "^7.1",
         "linslin/yii2-curl": "*",
-        "rxlisbest/aliyun-dysms-php-sdk": "1.0"
+        "rxlisbest/aliyun-dysms-php-sdk": "1.0",
+        "rxlisbest/oauth2": "1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
