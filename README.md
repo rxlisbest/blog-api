@@ -45,7 +45,8 @@
         ],
         'aliyun' => [
             'sms' => [
-                'AppCode' => '[阿里云市场短信AppCode]',
+                'accessKeyId' => '[阿里云短信服务accessKeyId]',
+                'accessKeySecret' => '[阿里云短信服务accessKeySecret]',
                 'SignName' => '我要做网站',
                 'TemplateCode' => [
                     'register' => ['code'=>'[阿里云市场短信code]', 'daily_limit' => 5]
