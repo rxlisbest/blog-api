@@ -14,7 +14,6 @@ Thumbs.db
 
 # composer vendor dir
 /vendor/*
-!/vendor/conquer/*
 !/vendor/bower/*
 
 # composer itself is not needed
