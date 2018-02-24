@@ -17,7 +17,7 @@ class m170816_010423_user_wechat extends Migration
 		    'language' => Schema::TYPE_STRING . '(100) NOT NULL DEFAULT 0 COMMENT \'language\'',
 		    'create_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'创建时间\'',
 		    'update_time' => Schema::TYPE_BIGINT . '(20) NOT NULL DEFAULT \'0\' COMMENT \'编辑时间\'',
-		    'PRIMARY KEY (user_id)',
+		    'PRIMARY KEY (user_id, openid)',
 	    ]);
     }
 
