@@ -120,9 +120,9 @@ class SmsAliyunController extends BaseController
             throw new HttpException(500, '发送时间间隔不能短于' .$sms_config['time_interval'].'s');
         }
 
-        $param_string = $this->createParamString($get['TemplateCode']);
+        $param = $this->createParam($get['TemplateCode']);
         $sms_aliyun = new SmsAliyun();
-        $sms_aliyun->ParamString = $param_string;
+        $sms_aliyun->ParamString = json_encode($param);
         $sms_aliyun->RecNum = $get['RecNum'];
         $sms_aliyun->TemplateCode = $template_code['code'];
         $sms_aliyun->ip = Yii::$app->request->userIP;
@@ -155,9 +155,7 @@ class SmsAliyunController extends BaseController
             $request->setTemplateCode($template_code['code']);
 
             // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
-            $request->setTemplateParam(json_encode(array(  // 短信模板中字段的值
-                "code" => sprintf('%06d', rand(0, 999999))
-            ), JSON_UNESCAPED_UNICODE));
+            $request->setTemplateParam(json_encode($param, JSON_UNESCAPED_UNICODE));
 
             // 可选，设置流水号
             $request->setOutId("yourOutId");
@@ -174,7 +172,7 @@ class SmsAliyunController extends BaseController
         }
     }
 
-    private function createParamString($TemplateCode){
+    private function createParam($TemplateCode){
         $param = [];
         switch ($TemplateCode){
             case 'register':
@@ -183,7 +181,7 @@ class SmsAliyunController extends BaseController
             default:
                 // do nothing
         }
-        return json_encode($param);
+        return $param;
     }
 
     public function actionCaptcha($random){
