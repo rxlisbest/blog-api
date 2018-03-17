@@ -14,7 +14,7 @@ class m180315_143655_oauth2_user extends Migration
         $this->insert('oauth2_user', [
             'username' => 'admin',
             'cellphone' => '18363857076',
-            'password' => 'bc4d96fafbae78f73fba487d766ec9ed',
+            'password' => md5('admin'.'u94Y8a'),
             'salt' => 'u94Y8a',
             'roles' => '',
             'scope' => '',
