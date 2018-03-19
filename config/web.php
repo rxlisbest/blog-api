@@ -70,7 +70,7 @@ $config = [
 			    // 用户
 			    'OPTIONS,GET v1/users/fetch' => 'v1/user/fetch',
                 // 讨论
-                'OPTIONS,GET v1/discussion/random' => 'v1/discussion/random',
+                'OPTIONS,GET v1/discussions/random' => 'v1/discussion/random',
 		    ],
 	    ],
     ],
