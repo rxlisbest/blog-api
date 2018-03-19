@@ -62,6 +62,57 @@ class DiscussionController extends BaseController
 		]);
 	}
 
+    public function actionRandom(){
+        $get = Yii::$app->request->get();
+
+        if(isset($get['page'])){
+            $pagination = [
+                'page' => $get['page'] - 1,
+                'pageSize' => 10,
+            ];
+        }
+        else{
+            $pagination = false;
+        }
+
+        $where = [];
+        if(isset($get['type'])){
+            $where['type'] = $get['type'];
+        }
+        if(!isset($get['limit'])){
+            $limit = 1000;
+        }
+        else{
+            $limit = $get['limit'];
+        }
+
+        if(isset($get['time'])){
+            $get['time'] = explode(',', $get['time']);
+            if(count($get['time']) != 2){
+                unset($get['time']);
+            }
+        }
+
+        if(isset($get['user_id'])){
+            $where['user_id'] = $get['user_id'];
+        }
+
+        if(isset($get['article_id'])){
+            $where['article_id'] = $get['article_id'];
+        }
+
+        $where['status'] = 0;
+        $discussion = Discussion::find()->where($where)->limit($limit)->orderBy('RAND()');
+        if(isset($get['time'])){
+            $discussion = $discussion->andFilterWhere(['between', 'time', $get['time'][0], $get['time'][1]]);
+        }
+        return Yii::createObject([
+            'class' => ActiveDataProvider::className(),
+            'query' => $discussion,
+            'pagination' => $pagination,
+        ]);
+    }
+
 	public function actionCreate(){
 		$post = Yii::$app->request->post();
 		$discussion = new Discussion();

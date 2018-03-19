@@ -69,6 +69,8 @@ $config = [
 			    'OPTIONS,GET v1/qiniu/token' => 'v1/qiniu/token',
 			    // 用户
 			    'OPTIONS,GET v1/users/fetch' => 'v1/user/fetch',
+                // 讨论
+                'OPTIONS,GET v1/discussion/random' => 'v1/discussion/random',
 		    ],
 	    ],
     ],
