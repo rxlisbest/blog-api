@@ -18,7 +18,7 @@ class m180315_143655_oauth2_user extends Migration
             'salt' => 'u94Y8a',
             'roles' => '',
             'scope' => '',
-            'client_id' => md5('blog')
+            'client_id' => '5ab1eafb971da'
         ]);
     }
 

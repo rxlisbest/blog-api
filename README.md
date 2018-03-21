@@ -62,8 +62,4 @@
 - 根目录执行composer install
 - 根目录执行./yii migrate
 - 根目录执行./yii migrate --migrationPath=@conquer/oauth2/migrations
-- 数据库中执行脚本，登录账号/密码：admin/admin
-```
-	insert into `oauth2_client` ( `client_id`, `client_secret`, `redirect_uri`, `grant_type`, `scope`, `created_at`, `updated_at`, `created_by`, `updated_by`) values ( 'blog', '1', '1', '1', '1', '1', '1', '1', '1');
-	insert into `oauth2_user` ( `username`, `cellphone`, `password`, `salt`, `roles`, `scope`, `client_id`) values ( 'admin', null, 'a66abb5684c45962d887564f08346e8d', '123456', null, null, 'blog');
-```
+- 登录账号/密码：admin/admin

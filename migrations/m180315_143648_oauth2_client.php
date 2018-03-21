@@ -12,7 +12,7 @@ class m180315_143648_oauth2_client extends Migration
      */
     public function safeUp(){
         $this->insert('oauth2_client', [
-            'client_id' => md5('blog'),
+            'client_id' => '5ab1eafb971da',
             'client_secret' => 'xJ5Qvz6l',
             'redirect_uri' => '/',
             'grant_type' => 'password',
@@ -28,7 +28,7 @@ class m180315_143648_oauth2_client extends Migration
      * {@inheritdoc}
      */
     public function safeDown(){
-        $this->delete('oauth2_client', ['client_id' => 'blog']);
+        $this->delete('oauth2_client', ['client_id' => '5ab1eafb971da']);
     }
 
     /*
