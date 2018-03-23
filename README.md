@@ -59,7 +59,7 @@
         'sensitive_words' => ['敏感词']
     ];
 ```
-- 根目录执行composer global require "fxp/composer-asset-plugin:1.4.2"
+- 根目录执行composer global require "fxp/composer-asset-plugin:1.2.0"
 - 根目录执行composer install
 - 根目录执行./yii migrate
 - 根目录执行./yii migrate --migrationPath=@conquer/oauth2/migrations
